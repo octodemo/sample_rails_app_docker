@@ -13,7 +13,7 @@ To get started with the app, clone the repo and then install the needed gems:
 ```
 $ cd /path/to/repos
 $ git clone https://bitbucket.org/rubyminedoc/sample_rails_app.git sample_rails_app
-$ cd sample_app_reference
+$ cd sample_rails_app
 $ bundle install --without production
 ```
 
