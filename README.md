@@ -10,31 +10,4 @@ All source code in the project is available jointly under the MIT License and th
 
 ## Getting started
 
-To get started with the app, clone the repo and then install the needed gems:
-
-```
-$ cd /path/to/repos
-$ git clone https://bitbucket.org/rubyminedoc/sample_rails_app.git sample_rails_app
-$ cd sample_rails_app
-$ bundle install --without production
-```
-
-Next, migrate the database:
-
-```
-$ rails db:migrate
-```
-
-Finally, run the test suite to verify that everything is working correctly:
-
-```
-$ rails test
-```
-
-If the test suite passes, you'll be ready to run the app in a local server:
-
-```
-$ rails server
-```
-
-Of course, you can do the same steps by using RubyMine.
+To get started with the app, follow this step-by-step tutorial: [Get Started](https://www.jetbrains.com/help/ruby/get-started.html)
