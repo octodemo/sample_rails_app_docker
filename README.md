@@ -4,6 +4,10 @@ This is a fork of the [*Ruby on Rails Tutorial*](http://www.railstutorial.org/) 
 
 ![rubymine](img/ide_main.png)
 
+## Help page
+
+For general help on the Rails Tutorial, see the [Rails Tutorial Help page](https://www.railstutorial.org/help).
+
 ## License
 
 All source code in the project is available jointly under the MIT License and the Beerware License. See [LICENSE.md](LICENSE.md) for details.
