@@ -7,3 +7,5 @@ ADD Gemfile.lock /sample_rails_application/Gemfile.lock
 RUN bundle install
 COPY . /sample_rails_application
 EXPOSE 3000
+
+#CMD ["rails", "server", "-b", "0.0.0.0"]
