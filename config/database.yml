@@ -1,28 +1,22 @@
 default: &default
-  adapter: sqlite3
   pool: 5
   timeout: 5000
 
 development:
   <<: *default
+  adapter: sqlite3
   database: db/development.sqlite3
 
 test:
   <<: *default
+  adapter: sqlite3
   database: db/test.sqlite3
 
-#default: &default
-#  adapter: postgresql
-#  encoding: unicode
-#  host: db
-#  username: postgres
-#  password:
-#  pool: 5
-#
-#development:
-#  <<: *default
-#  database: sample_rails_app_development
-#
-#test:
-#  <<: *default
-#  database: sample_rails_app_test
+production:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password:
+  database: sample_rails_app_production
