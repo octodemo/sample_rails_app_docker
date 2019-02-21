@@ -1,0 +1,8 @@
+.dockerignore
+.git
+.gitignore
+.rbenv-gemsets
+LICENSE.md
+README.md
+/log
+/tmp
