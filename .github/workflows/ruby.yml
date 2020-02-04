@@ -15,7 +15,9 @@ jobs:
         ruby-version: 2.6.x
     - name: Build and test with Rake
       run: |
-        sudo apt-get install libcurl3-dev 	--without-pg_config
+        gem install pg -v '0.20.0' --source 'https://rubygems.org/
+        apt-get install libsqlite3-dev
+        apt-get install libcurl3-dev 	
         gem install bundler 
         bundle install --jobs 4 --retry 3
         bundle exec rake
