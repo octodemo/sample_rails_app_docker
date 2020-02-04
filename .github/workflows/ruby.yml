@@ -16,6 +16,6 @@ jobs:
     - name: Build and test with Rake
       run: |
         sudo apt-get install libcurl3-dev
-        gem install bundler
+        gem install bundler 	--without-pg_config
         bundle install --jobs 4 --retry 3
         bundle exec rake
