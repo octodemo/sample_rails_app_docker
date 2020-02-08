@@ -15,10 +15,10 @@ jobs:
         ruby-version: 2.6.x
     - name: Build and test with Rake
       run: |
-        gem install pg -v '0.20.0' --source 'https://rubygems.org/'
         sudo apt-get install libsqlite3-dev
         sudo apt-get install libcurl3-dev
-        sudo apt-get install postgresql 	
+        sudo apt-get install postgresql
+        gem install pg -v '0.20.0' --source 'https://rubygems.org/'
         gem install bundler 
         bundle install --jobs 4 --retry 3
         bundle exec rake
