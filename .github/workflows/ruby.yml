@@ -15,7 +15,7 @@ jobs:
         ruby-version: 2.6.x
     - name: Build and test with Rake
       run: |
-#        gem install pg -v '0.20.0' --source 'https://rubygems.org/
+        gem install pg -v '0.20.0' --source 'https://rubygems.org/
         apt-get install libsqlite3-dev
         apt-get install libcurl3-dev
         apt-get install postgresql 	
