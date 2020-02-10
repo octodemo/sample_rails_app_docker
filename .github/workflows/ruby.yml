@@ -19,6 +19,9 @@ jobs:
         sudo apt install build-essential
         sudo apt install zlib1g-dev
         sudo apt install libxml2-dev
+        sudo apt install libcurl
+        sudo apt install libpqfe
+        sudo apt install libsqlite3-dev
         gem install bundler 
         bundle install --jobs 4 --retry 3
         bundle exec rake
