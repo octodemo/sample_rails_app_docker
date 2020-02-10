@@ -15,6 +15,10 @@ jobs:
         ruby-version: 2.6.x
     - name: Build and test with Rake
       run: |
+        sudo apt upgraede ruby-full
+        sudo apt install build-essential
+        sudo apt install zlib1g-dev
+        sudo apt install libxml2-dev
         gem install bundler 
         bundle install --jobs 4 --retry 3
         bundle exec rake
