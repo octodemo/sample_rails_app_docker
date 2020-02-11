@@ -9,13 +9,15 @@
 #
 # 2. Change the values for the REGISTRY_NAME, CLUSTER_NAME, CLUSTER_RESOURCE_GROUP and NAMESPACE environment variables (below).
 
+name: dockeracr-aks
+
 on: [push]
 
 # Environment variables available to all jobs and steps in this workflow
 env:
-  REGISTRY_NAME: my-registry-name
-  CLUSTER_NAME: my-cluster-name
-  CLUSTER_RESOURCE_GROUP: my-cluster-resource-group
+  REGISTRY_NAME: acr4ravigadhia
+  CLUSTER_NAME: cluster-aks-demo-2
+  CLUSTER_RESOURCE_GROUP: rg-aks-demo
   NAMESPACE: default
   
 jobs:
