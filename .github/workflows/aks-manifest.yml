@@ -65,6 +65,8 @@ jobs:
           manifests/db-claim0-persistentvolumeclaim.yaml
           manifests/web-claim0-persistentvolumeclaim.yaml
           manifests/web-service.yaml
+          manifests/web-deployment.yaml
+          manifests/db-deployment.yaml
         images: |
           ${{ env.REGISTRY_NAME }}.azurecr.io/sample_rails_app_docker:${{ github.sha }}
         imagepullsecrets: |
