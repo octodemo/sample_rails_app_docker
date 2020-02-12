@@ -1,0 +1,77 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: azure-rails-back
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: azure-rails-back
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+        - name: azure-rails-back
+          image: postgres
+          ports:
+            - containerPort: 5432
+              name: postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "azure-rails-back"
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: "azure-rails-back"
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: azure-rails-front
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: azure-rails-front
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+        - name: azure-rails-front
+          image: sample_rails_app_docker:1.0
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              cpu: 500m
+          env:
+            - name: POSTGRES
+              value: "azure-rails-back"
+          args:
+            - bash
+            - -c
+            - rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-rails-front
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3000
+  selector:
+    app: azure-rails-front
