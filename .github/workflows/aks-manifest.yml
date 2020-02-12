@@ -9,7 +9,7 @@
 #
 # 2. Change the values for the REGISTRY_NAME, CLUSTER_NAME, CLUSTER_RESOURCE_GROUP and NAMESPACE environment variables (below).
 
-name: dockeracr-aks
+name: docker-acr-aks
 
 on: [push]
 
@@ -35,8 +35,8 @@ jobs:
     
     # Container build and push to a Azure Container registry (ACR)
     - run: |
-        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
-        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/sample_rails_app_docker:${{ github.sha }}
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/sample_rails_app_docker:${{ github.sha }}
     
     # Set the target Azure Kubernetes Service (AKS) cluster. 
     - uses: azure/aks-set-context@v1
@@ -62,10 +62,13 @@ jobs:
     - uses: azure/k8s-deploy@v1
       with:
         manifests: |
-          manifests/deployment.yml
-          manifests/service.yml
+          manifests/db-claim0-persistentvolumeclaim.yaml
+          manifests/db-deployment.yaml
+          manifests/web-claim0-persistentvolumeclaim.yaml
+          manifests/web-deployment.yaml
+          manifests/web-service.yaml
         images: |
-          ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+          ${{ env.REGISTRY_NAME }}.azurecr.io/sample_rails_app_docker:${{ github.sha }}
         imagepullsecrets: |
           ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}
