@@ -1,10 +1,15 @@
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-rails-back
+  labels:
+    app: azure-rails-back
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: azure-rails-back
   template:
     metadata:
       labels:
@@ -29,12 +34,17 @@ spec:
   selector:
     app: "azure-rails-back"
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-rails-front
+  labels:
+    app: azure-rails-front
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: azure-rails-front
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -49,7 +59,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
         - name: azure-rails-front
-          image: sample_rails_app_docker:1.0
+          image: acr4ravigadhia.azurecr.io/sample_rails_app_docker:91cf9c513bc9c710ff590b130191a5dc2c0111da
           ports:
             - containerPort: 3000
           resources:
