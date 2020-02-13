@@ -15,3 +15,5 @@ All source code in the project is available jointly under the MIT License and th
 ## Getting started
 
 To get started with the app, follow this step-by-step tutorial: [Get Started](https://www.jetbrains.com/help/ruby/get-started.html)
+ 
+ 
