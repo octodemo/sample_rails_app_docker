@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: rails-demo-ing
+spec:
+  type: LoadBalancer
+  ports: 
+  - port: 3000
+  selector:
+    app: rails-kube-app
+    tier: app
+
