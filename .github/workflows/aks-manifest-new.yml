@@ -11,7 +11,10 @@
 
 name: docker-acr-aks-manifest
 
-on: [push]
+on:
+  push:
+    branches: no-branch
+
 
 # Environment variables available to all jobs and steps in this workflow
 env:
