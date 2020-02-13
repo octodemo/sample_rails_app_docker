@@ -1,4 +1,4 @@
-# This workflow will build a docker container, publish it to Azure Container Registry, and deploy it to Azure Kubernetes Service using a helm chart.
+# This workflow will build a docker container, publish it to Azure Container Registry, and deploy it to Azure Kubernetes Service.
 #
 # To configure this workflow:
 #
@@ -9,7 +9,7 @@
 #
 # 2. Change the values for the REGISTRY_NAME, CLUSTER_NAME, CLUSTER_RESOURCE_GROUP and NAMESPACE environment variables (below).
 
-name: docker-acr-aks-helm
+name: docker-acr-aks-manifest
 
 on: [push]
 
@@ -19,7 +19,7 @@ env:
   CLUSTER_NAME: cluster-aks-demo-2
   CLUSTER_RESOURCE_GROUP: rg-aks-demo
   NAMESPACE: default
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,8 +35,8 @@ jobs:
     
     # Container build and push to a Azure Container registry (ACR)
     - run: |
-        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
-        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/sample_rails_app_docker:${{ github.sha }}
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/sample_rails_app_docker:${{ github.sha }}
     
     # Set the target Azure Kubernetes Service (AKS) cluster. 
     - uses: azure/aks-set-context@v1
@@ -57,21 +57,21 @@ jobs:
         container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}
-
-    # Baking the helm chart to generate the manifests to deploy
-    - uses: azure/k8s-bake@v1
-      with:
-        renderEngine: 'helm2'
-        helmChart: './my-helm-chart/' 
-        helm-version: 'latest' 
-      id: bake
-
+    
     # Deploy app to AKS
     - uses: azure/k8s-deploy@v1
       with:
-        manifests: ${{ steps.bake.outputs.manifestsBundle }}
+        manifests: |
+	  kube/volumes/postgres_volumes.yaml
+	  kube/services/postgres_svc.yaml
+	  kube/deployments/postgres_deploy.yaml
+	  kube/jobs/setup.yaml
+	  kube/services/rails_svc.yaml
+	  kube/deployments/sidekiq_deploy.yaml
+	  kube/deployments/rails_deploy.yaml
+	  kube/ingresses/ingress.yaml
         images: |
-          ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+          ${{ env.REGISTRY_NAME }}.azurecr.io/sample_rails_app_docker:${{ github.sha }}
         imagepullsecrets: |
           ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}
