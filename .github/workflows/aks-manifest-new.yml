@@ -65,14 +65,7 @@ jobs:
       - uses: azure/k8s-deploy@v1
         with:
           manifests: |
-            kube/volumes/postgres_volumes.yaml
-            kube/services/postgres_svc.yaml
-            kube/deployments/postgres_deploy.yaml
-            kube/jobs/setup.yaml
-            kube/services/rails_svc.yaml
-            kube/deployments/sidekiq_deploy.yaml
-            kube/deployments/rails_deploy.yaml
-            kube/ingresses/ingress.yaml
+            manifests/all-in-one.yaml
           images: |
             ${{ env.REGISTRY_NAME }}.azurecr.io/sample_rails_app_docker:${{ github.sha }}
           imagepullsecrets: |
