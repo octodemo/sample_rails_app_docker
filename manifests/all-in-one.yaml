@@ -23,6 +23,9 @@ spec:
           ports:
             - containerPort: 5432
               name: postgres
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "password"
 ---
 apiVersion: v1
 kind: Service
